@@ -1,0 +1,15 @@
+/node_modules
+
+/keys
+
+/uploads
+
+/logs
+
+.cache
+.vscode
+.DS_Store
+.env
+
+yarn-error.log*
+nohup.out

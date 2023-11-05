@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Image List</title>
+    <style>
+        * {
+            font-family: monospace;
+        }
+
+        .copy-btn {
+            padding: 0.5em;
+        }
+
+
+        .file-name {
+            max-width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .main-table {
+            margin: 1em auto;
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            padding: 0.25em 1em;
+            border: 1px solid #54585d;
+        }
+
+        .table-header {
+            background-color: #54585d;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        img.lazy {
+            /* Optional: Add effects for when the image is not yet loaded */
+            filter: blur(5px);
+            transition: filter 0.3s;
+        }
+
+        img {
+            /* Once the image is loaded, remove the blur */
+            filter: blur(0px);
+            transition: filter 0.3s;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+
+            if ("IntersectionObserver" in window) {
+                let lazyImageObserver = new IntersectionObserver(function (entries, observer) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            let lazyImage = entry.target;
+                            lazyImage.src = lazyImage.dataset.src;
+                            lazyImage.classList.remove("lazy");
+                            lazyImageObserver.unobserve(lazyImage);
+                        }
+                    });
+                });
+
+                lazyImages.forEach(function (lazyImage) {
+                    lazyImageObserver.observe(lazyImage);
+                });
+            } else {
+                // Fallback for browsers that don't support IntersectionObserver
+                var lazyLoadFallback = function () {
+                    var scrollTop = window.pageYOffset;
+                    lazyImages.forEach(function (img) {
+                        if (img.offsetTop < (window.innerHeight + scrollTop)) {
+                            img.src = img.dataset.src;
+                            img.classList.remove("lazy");
+                        }
+                    });
+                };
+
+                window.addEventListener("scroll", lazyLoadFallback);
+                window.addEventListener("resize", lazyLoadFallback);
+                window.addEventListener("orientationChange", lazyLoadFallback);
+            }
+        });
+
+        function resolveUrl(relativeUrl) {
+            var a = document.createElement('a');
+            a.href = relativeUrl; // Set the relative URL
+            return a.href; // When accessed, 'href' returns the full URL
+        }
+
+        function copyToClipboard(buttonEle) {
+            const urlToCopy = buttonEle.parentElement.nextElementSibling.children[0].href;
+            // Use the Clipboard API to copy the text
+            navigator.clipboard.writeText(urlToCopy).then(function () {
+                // On success, you can show a tooltip, change the button text, or simply alert the user
+                buttonEle.innerText = 'Done';
+                setTimeout(() => { buttonEle.innerText = 'Copy'; }, 2000); // Reset button text after 2 seconds
+            }).catch(function (error) {
+                // If there's an error, you might want to fall back to a different method or alert the user
+                console.error('Copy failed', error);
+                // alert('Failed to copy text: ', error);
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h1>
+        <center>Image List</center>
+    </h1>
+
+    <table class="main-table">
+        <thead class="table-header">
+            <tr>
+                <th>Action</th>
+                <th>File Name</th>
+                <th>Size</th>
+                <th>Create Time</th>
+                <th>Thumbnail</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Image_List_Content-->
+        </tbody>
+    </table>
+</body>
+
+</html>
