@@ -19,6 +19,7 @@ Recommend: Use `pm2`
 
 ## Todo
 
+- [ ] Automatic `uploads` / `keys` / `logs` folder creation
 - [ ] Upload multiple images at once
 - [ ] Uploading folder backup
 - [ ] Maybe add a standalone upload button in image_list page

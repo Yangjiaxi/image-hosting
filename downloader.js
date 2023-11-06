@@ -31,7 +31,7 @@ const getFileData = async (uploadsDir, thumbnailsDir) => {
       name: file,
       size: formatBytes(stats.size),
       mtime: stats.mtime, // Keep as Date object for sorting
-      thumbnail: thumbnailExists ? `/images/thumbnails/${file}` : null,
+      thumbnail: thumbnailExists ? `/image/thumbnails/${file}` : null,
     };
   }));
 
@@ -50,7 +50,7 @@ const renderHTML = (filesData) => {
   filesData.forEach((file) => {
     content += `<tr>
                <td><button class="copy-btn" onclick="copyToClipboard(this)">Copy</button></td>
-               <td class='file-name'><a href="/images/${file.name}">${file.name}</a></td>
+               <td class='file-name'><a href="/image/${file.name}">${file.name}</a></td>
                <td>${file.size}</td>
                <td>${file.mtime}</td>
                <td>${file.thumbnail ? `<img class="lazy" data-src="${file.thumbnail}" src="" alt="Thumbnail" loading="lazy" style="width:100px;">` : 'No thumbnail'}</td>

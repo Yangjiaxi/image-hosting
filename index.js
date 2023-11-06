@@ -1,9 +1,10 @@
 import express, { Router } from 'express';
 import fs from 'fs';
 import https from 'https';
+import favicon from 'serve-favicon';
 
 import logger from './logger.js';
-import { PORT } from './const.js';
+import { FAVICON_FILE, PORT } from './const.js';
 import { getImage, getImagesList } from './downloader.js';
 import { authChecker, cors, errorHandler, infoLogger, jsonParser, noMatch, urlencodedParser } from './middlewares.js';
 import { imageUploader, multerExceptionCatcher, uploadStorage } from './uploader.js';
@@ -15,15 +16,17 @@ app.use(urlencodedParser);
 app.use(cors);
 app.use(infoLogger);
 
+app.use(favicon(FAVICON_FILE));
+
 // get image / imageList
 const getRouter = Router();
-getRouter.use('/images', getImage);
-getRouter.get('/images', authChecker, getImagesList);
+getRouter.get('/', authChecker, getImagesList);
+getRouter.use('/image', getImage);
 app.use(getRouter);
 
 // post image
 const postRouter = Router();
-postRouter.post('/image', uploadStorage.single('image'), multerExceptionCatcher, imageUploader);
+postRouter.post('/upload', uploadStorage.single('image'), multerExceptionCatcher, imageUploader);
 app.use(postRouter);
 
 app.use(noMatch);
