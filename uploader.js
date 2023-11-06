@@ -1,8 +1,9 @@
+import fs from 'fs';
 import multer from 'multer';
 import path from 'path';
 import sharp from 'sharp';
-import fs from 'fs';
-import { UPLOAD_DIR, THUMBNAILS_DIR } from './const.js';
+
+import { THUMBNAILS_DIR, UPLOAD_DIR } from './const.js';
 
 fs.promises.mkdir(THUMBNAILS_DIR, { recursive: true }).catch(console.error);
 

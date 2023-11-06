@@ -13,7 +13,6 @@
             padding: 0.5em;
         }
 
-
         .file-name {
             max-width: 200px;
             white-space: nowrap;
@@ -88,21 +87,12 @@
             }
         });
 
-        function resolveUrl(relativeUrl) {
-            var a = document.createElement('a');
-            a.href = relativeUrl; // Set the relative URL
-            return a.href; // When accessed, 'href' returns the full URL
-        }
-
         function copyToClipboard(buttonEle) {
             const urlToCopy = buttonEle.parentElement.nextElementSibling.children[0].href;
-            // Use the Clipboard API to copy the text
             navigator.clipboard.writeText(urlToCopy).then(function () {
-                // On success, you can show a tooltip, change the button text, or simply alert the user
                 buttonEle.innerText = 'Done';
-                setTimeout(() => { buttonEle.innerText = 'Copy'; }, 2000); // Reset button text after 2 seconds
+                setTimeout(() => { buttonEle.innerText = 'Copy'; }, 2000);
             }).catch(function (error) {
-                // If there's an error, you might want to fall back to a different method or alert the user
                 console.error('Copy failed', error);
                 // alert('Failed to copy text: ', error);
             });

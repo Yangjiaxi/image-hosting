@@ -1,7 +1,8 @@
 import { json, urlencoded } from 'express';
 import basicAuth from 'express-basic-auth';
-import { logger } from './logger.js';
+
 import { SECURE_TOKEN, SECURE_USERNAME } from './const.js';
+import { logger } from './logger.js';
 
 export const jsonParser = json({ limit: '1mb' });
 export const urlencodedParser = urlencoded({ extended: true });

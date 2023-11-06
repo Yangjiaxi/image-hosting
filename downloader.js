@@ -1,8 +1,9 @@
-import path from 'path';
-import fs from 'fs';
 import express from 'express';
+import fs from 'fs';
 import moment from 'moment-timezone';
-import { THUMBNAILS_DIR, UPLOAD_DIR, IMAGE_LIST_TEMPLATE } from './const.js';
+import path from 'path';
+
+import { IMAGE_LIST_TEMPLATE, THUMBNAILS_DIR, UPLOAD_DIR } from './const.js';
 
 const htmlTemplate = fs.readFileSync(IMAGE_LIST_TEMPLATE, 'utf8');
 export const getImage = express.static(UPLOAD_DIR);
@@ -58,17 +59,6 @@ const renderHTML = (filesData) => {
 
   return htmlTemplate.replace('<!-- Image_List_Content-->', content);
 };
-
-// export const getImagesList = (req, res) => {
-//   getFileData(UPLOAD_DIR)
-//     .then((filesData) => {
-//       res.send(renderHTML(filesData));
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.status(500).send('Server Error');
-//     });
-// };
 
 export const getImagesList = async (req, res) => {
   try {
