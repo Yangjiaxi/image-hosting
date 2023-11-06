@@ -6,12 +6,11 @@ import favicon from 'serve-favicon';
 import logger from './logger.js';
 import { FAVICON_FILE, PORT } from './const.js';
 import { getImage, getImagesList } from './downloader.js';
-import { authChecker, cors, errorHandler, infoLogger, jsonParser, noMatch, urlencodedParser } from './middlewares.js';
+import { authChecker, cors, errorHandler, infoLogger, noMatch, urlencodedParser } from './middlewares.js';
 import { imageUploader, multerExceptionCatcher, uploadStorage } from './uploader.js';
 
 const app = express();
 
-app.use(jsonParser);
 app.use(urlencodedParser);
 app.use(cors);
 app.use(infoLogger);
