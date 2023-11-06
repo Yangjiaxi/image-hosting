@@ -34,8 +34,8 @@ app.use(errorHandler);
 
 if (process.env.NODE_ENV === 'production') {
   const server = https.createServer({
-    key: fs.readFileSync('keys/api.key'),
-    cert: fs.readFileSync('keys/api.pem'),
+    key: fs.readFileSync('keys/img.key'),
+    cert: fs.readFileSync('keys/img.pem'),
   }, app);
   server.listen(PORT, () => {
     logger.info(`Server is running on ${PORT}`);
