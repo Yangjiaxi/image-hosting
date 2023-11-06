@@ -37,7 +37,7 @@ if (process.env.NODE_ENV === 'production') {
     key: fs.readFileSync('keys/img.key'),
     cert: fs.readFileSync('keys/img.pem'),
   }, app);
-  server.listen(PORT, () => {
+  server.listen(PORT, '0.0.0.0', () => {
     logger.info(`Server is running on ${PORT}`);
   });
 } else {
