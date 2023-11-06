@@ -40,8 +40,8 @@ export const imageUploader = async (req, res) => {
       .toFile(thumbnailPath);
 
     const remoteEndpoint = req.get('Host');
-    const imageUrl = `${req.protocol}://${remoteEndpoint}/images/${filename}`;
-    const thumbnailUrl = `${req.protocol}://${remoteEndpoint}/images/thumbnails/${filename}`;
+    const imageUrl = `${req.protocol}://${remoteEndpoint}/image/${filename}`;
+    const thumbnailUrl = `${req.protocol}://${remoteEndpoint}/image/thumbnails/${filename}`;
 
     res.status(200).json({
       url: imageUrl,
