@@ -32,15 +32,18 @@ app.use(postRouter);
 app.use(noMatch);
 app.use(errorHandler);
 
-if (process.env.NODE_ENV === 'production') {
-  const server = https.createServer({
-    key: fs.readFileSync('keys/img.key'),
-    cert: fs.readFileSync('keys/img.pem'),
-  }, app);
-  server.listen(PORT, '0.0.0.0', () => {
-    logger.info(`Server is running on ${PORT}`);
-  });
-} else {
-  app.listen(PORT);
-  logger.info('Under development mode!');
-}
+// if (process.env.NODE_ENV === 'production') {
+//   const server = https.createServer({
+//     key: fs.readFileSync('keys/img.key'),
+//     cert: fs.readFileSync('keys/img.pem'),
+//   }, app);
+//   server.listen(PORT, '0.0.0.0', () => {
+//     logger.info(`Server is running on ${PORT}`);
+//   });
+// } else {
+//   app.listen(PORT);
+//   logger.info('Under development mode!');
+// }
+
+app.listen(PORT);
+logger.info(`Server is running on ${PORT}`);
