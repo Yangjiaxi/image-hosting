@@ -61,6 +61,10 @@ const renderHTML = (filesData) => {
 };
 
 export const getImagesList = async (req, res) => {
+  const remoteEndpoint = req.get('Host');
+  const imageUrl = `${req.protocol}://${remoteEndpoint}`;
+  console.log(`Request => ${imageUrl}`);
+
   try {
     const filesData = await getFileData(UPLOAD_DIR, THUMBNAILS_DIR);
     res.send(renderHTML(filesData));
